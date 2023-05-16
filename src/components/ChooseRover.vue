@@ -1,0 +1,25 @@
+<template>
+    <div class="mt-5 mb-4 position-fixed text-center">
+        <label class="mb-2 fw-bold">Pick your robot</label>
+        <select class="form-select" v-model="selectRover" @change="changeRover">
+            <option value="curiosity">Curiosity</option>
+            <option value="opportunity">Opportunity</option>
+            <option value="spirit">Spirit</option>
+        </select>
+    </div>
+</template>
+
+<script setup lang="ts">
+import { ref } from "vue";
+import { useSearchStore } from "../store/SearchStore"
+
+// Pinia Store
+const store = useSearchStore();
+const { newSearch } = store;
+
+const selectRover = ref(store.selectRover);
+
+const changeRover = () => {
+    newSearch(selectRover.value);
+};
+</script>
