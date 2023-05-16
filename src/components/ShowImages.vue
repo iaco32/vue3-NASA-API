@@ -52,7 +52,6 @@ const getPictures = async () => {
     spinner.value = true;
     const response = await axios.get("https://api.nasa.gov/mars-photos/api/v1/rovers/" + selectRover.value + "/photos?sol=1001&api_key=" + apiKey);
     pictures.value = response.data.photos;
-    console.log("pictureLIST: ", pictures.value);
     displayedpictures.value = pictures.value.slice(0, visibleCount.value);
     canShowMore.value = visibleCount.value < pictures.value.length;
     spinner.value = false;
