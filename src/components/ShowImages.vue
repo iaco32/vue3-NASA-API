@@ -3,7 +3,6 @@
     <div class="mt-5 pt-5" v-if="spinner">
       <Spinner class="mt-5" />
     </div>
-    <!-- <div class="text-dark fw-bolder d-block fs-6">Widgets: {{ searchedWidgets }}</div> -->
     <div v-else class="col-6 col-md-4 col-xl-3" v-for="picture in displayedpictures" :key="picture.id">
       <div class="card mb-8 shadow">
         <div class="card-body p-1">
@@ -37,7 +36,6 @@ const { selectRover } = storeToRefs(store);
 
 // Watching if there are changes in the store
 watch(selectRover, () => {
-  pageNumber.value = 1;
   getPictures();
 });
 
@@ -48,7 +46,6 @@ const visibleCount = ref(24); // Initial number of images to display
 const picturesPerLoad = 24; // Number of images to add each time with the infinite scrolling
 const canShowMore = ref(false); // Flag to add or not new images
 let spinner = ref(false);
-let pageNumber = ref(1);
 
 const getPictures = async () => {
   try {
