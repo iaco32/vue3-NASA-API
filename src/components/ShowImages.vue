@@ -3,9 +3,9 @@
     <div class="mt-5 pt-5" v-if="spinner">
       <Spinner class="mt-5" />
     </div>
-    <div v-else class="col-6 col-md-4 col-xl-3 mx-auto" v-for="picture in displayedpictures" :key="picture.id">
-      <div class="card text-center mb-8 shadow">
-        <div class="card-body p-0">
+    <div v-else class="col-6 col-md-4 col-xl-3" v-for="picture in displayedpictures" :key="picture.id">
+      <div class="card text-center mb-8 shadow h-100">
+        <div class="card-body p-0 d-flex align-items-center justify-content-center">
           <button type="button" class='btn ' data-bs-toggle="modal" data-bs-target="#detailedModalImg"
             @click="selectedPicture = picture.img_src"><img :src="picture.img_src" class="card-img" /></button>
         </div>
@@ -24,7 +24,7 @@
         <div class="modal-header">
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <div class="modal-body">
+        <div class="modal-body text-center">
           <img :src="selectedPicture" class="img-fluid" />
         </div>
       </div>
