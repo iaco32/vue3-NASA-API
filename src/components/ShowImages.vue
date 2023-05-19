@@ -3,10 +3,10 @@
     <div class="mt-5 pt-5" v-if="spinner">
       <Spinner class="mt-5" />
     </div>
-    <div v-else class="col-6 col-md-4 col-xl-3" v-for="picture in displayedpictures" :key="picture.id">
-      <div class="card mb-8 shadow">
+    <div v-else class="col-6 col-md-4 col-xl-3 mx-auto" v-for="picture in displayedpictures" :key="picture.id">
+      <div class="card text-center mb-8 shadow">
         <div class="card-body p-0">
-          <button type="button" class='btn' data-bs-toggle="modal" data-bs-target="#detailedModalImg"
+          <button type="button" class='btn ' data-bs-toggle="modal" data-bs-target="#detailedModalImg"
             @click="selectedPicture = picture.img_src"><img :src="picture.img_src" class="card-img" /></button>
         </div>
       </div>
@@ -119,10 +119,3 @@ onUnmounted(() => {
   window.removeEventListener("scroll", addNewResults)
 });
 </script>
-
-<style scoped>
-.card img {
-  height: 16vw;
-  object-fit: cover;
-}
-</style>
