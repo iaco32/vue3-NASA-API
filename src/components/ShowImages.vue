@@ -5,8 +5,9 @@
     </div>
     <div v-else class="col-6 col-md-4 col-xl-3" v-for="picture in displayedpictures" :key="picture.id">
       <div class="card mb-8 shadow">
-        <div class="card-body p-1">
-          <img :src="picture.img_src" class="card-img" />
+        <div class="card-body p-0">
+          <button type="button" class='btn' data-bs-toggle="modal" data-bs-target="#detailedModalImg"
+            @click="selectedPicture = picture.img_src"><img :src="picture.img_src" class="card-img" /></button>
         </div>
       </div>
       <div class="position-fixed bottom-0 end-0 mb-4 me-4" v-if="showScrollTopButton()">
@@ -16,13 +17,22 @@
       </div>
     </div>
   </div>
+  <!-- Modal -->
+  <div class="modal fade" id="detailedModalImg" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <img :src="selectedPicture" class="img-fluid" />
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script setup lang="ts">
-// defineProps<{ msg: string }>()
-
-// const count = ref(0)
-
 import axios from "axios";
 import { onMounted, onUnmounted, ref } from "vue";
 import { watch } from "vue";
@@ -39,13 +49,14 @@ watch(selectRover, () => {
   getPictures();
 });
 
-const apiKey = "H4T93iMnDkQ4R8R3V8aazAdan1tgE5wR4YqANYeW";
+const apiKey = "H4T93iMnDkQ4R8R3V8aazAdan1tgE5wR4YqANYeW"; //My personal API Key
 const pictures = ref<Picture[]>([]); //Array of objects from the API call
 const displayedpictures = ref<Picture[]>([]); // Array of objects to display
 const visibleCount = ref(24); // Initial number of images to display
 const picturesPerLoad = 24; // Number of images to add each time with the infinite scrolling
 const canShowMore = ref(false); // Flag to add or not new images
-let spinner = ref(false);
+let spinner = ref(false); // Flag to show or note the Spinner component
+const selectedPicture = ref(""); //Detailed Modal picture 
 
 const getPictures = async () => {
   try {
@@ -86,7 +97,7 @@ const goToTop = () => {
  */
 const addNewResults = () => {
   let endOfPage =
-    window.innerHeight + window.scrollY >=
+    window.innerHeight + window.scrollY + 1 >=
     document.documentElement.offsetHeight;
 
   if (endOfPage && canShowMore.value) {
